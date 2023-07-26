@@ -1,9 +1,6 @@
 package com.api.guilherme.portfolio.remedios.controllers;
 
-import com.api.guilherme.portfolio.remedios.remedio.DTOCadastroRemedio;
-import com.api.guilherme.portfolio.remedios.remedio.DTOListagemRemedio;
-import com.api.guilherme.portfolio.remedios.remedio.Remedio;
-import com.api.guilherme.portfolio.remedios.remedio.RemedioRepository;
+import com.api.guilherme.portfolio.remedios.remedio.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,19 @@ public class RemedioController {
     @GetMapping
     public List<DTOListagemRemedio> listar() {
         return repository.findAll().stream().map(DTOListagemRemedio::new).toList();
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DTOAtualizarRemedio dados) {
+        Remedio remedio = repository.getReferenceById(dados.id());
+        remedio.atualizarInformações(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 
 }
