@@ -3,6 +3,8 @@ package com.api.guilherme.portfolio.remedios.remedio;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity(name = "remedios")
 @Table(name = "Remedio")
 @Getter
@@ -19,8 +21,8 @@ public class Remedio {
     @Enumerated(EnumType.STRING)
     private Via via;
     private String lote;
-    private String quantidade;
-    private String validade;
+    private int quantidade;
+    private LocalDate validade;
     @Enumerated(EnumType.STRING)
     private Laboratorio laboratorio;
 
