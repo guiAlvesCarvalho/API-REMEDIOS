@@ -26,8 +26,10 @@ public class Remedio {
     private LocalDate validade;
     @Enumerated(EnumType.STRING)
     private Laboratorio laboratorio;
+    private Boolean ativo;
 
     public Remedio(DTOCadastroRemedio dados) {
+        this.ativo = true;
         this.nome = dados.nome();
         this.via = dados.via();
         this.lote = dados.lote();
@@ -46,5 +48,9 @@ public class Remedio {
         if (dados.nome() != null) {
             this.laboratorio = dados.laboratorio();
         }
+    }
+
+    public void inativar() {
+        this.ativo = false;
     }
 }

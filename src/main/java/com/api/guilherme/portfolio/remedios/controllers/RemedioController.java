@@ -23,7 +23,7 @@ public class RemedioController {
 
     @GetMapping
     public List<DTOListagemRemedio> listar() {
-        return repository.findAll().stream().map(DTOListagemRemedio::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DTOListagemRemedio::new).toList();
     }
 
     @PutMapping
@@ -37,6 +37,13 @@ public class RemedioController {
     @Transactional
     public void excluir(@PathVariable Long id) {
         repository.deleteById(id);
+    }
+
+    @DeleteMapping("/inativar/{id}")
+    @Transactional
+    public void inativar(@PathVariable Long id){
+        Remedio remedio = repository.getReferenceById(id);
+        remedio.inativar();
     }
 
 }
