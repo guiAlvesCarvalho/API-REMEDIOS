@@ -31,6 +31,7 @@ public class RemedioController {
     @GetMapping
     public ResponseEntity<List<DTOListagemRemedio>> listar() {
         var lista = repository.findAllByAtivoTrue().stream().map(DTOListagemRemedio::new).toList();
+
         return ResponseEntity.ok(lista);
     }
 
@@ -67,7 +68,14 @@ public class RemedioController {
         remedio.ativar();
 
         return ResponseEntity.noContent().build();
+    }
 
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DTODetalhamentoRemedio> detalhar(@PathVariable Long id) {
+        Remedio remedio = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DTODetalhamentoRemedio(remedio));
     }
 
 }
